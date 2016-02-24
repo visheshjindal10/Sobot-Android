@@ -5,4 +5,19 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="tv_reader">Reader</string>
+    <string name="tv_writer">Writer and Reader</string>
+    <string name="tv_dic">Dictionary</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_hint">Click button to Start Dictating !!</string>
+    <string name="speech_prompt">Say Something !!</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support Speech input</string>
+    <string name="error_tts">This Language is not supported</string>
+    <string name="error_tts_init_error">Initialization Failed</string>
+    <string name="tv_reading_for_you">Reading for you now..</string>
+    <string name="tv_stop_Reading">Stopping Reading...</string>
+    <string name="tv_Listening">Listening...</string>
+    <string name="tts_error_no_text">Kindly add some text first...</string>
 </resources>

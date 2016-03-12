@@ -9,8 +9,8 @@
             android:title="@string/tv_writer"/>
         <item
             android:id="@+id/nav_dic"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/tv_dic"/>
+            android:icon="@drawable/ic_save_black"
+            android:title="@string/tv_history"/>
     </group>
 
 

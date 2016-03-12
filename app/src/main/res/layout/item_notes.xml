@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:clickable="true"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="@color/background"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvTimeStamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            style="@style/timeShadow"
+            android:singleLine="true"
+            android:textColor="#666666"
+            android:textStyle="italic"
+            tools:text="today"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvNotes"
+            android:textSize="18sp"
+            tools:text = "@string/test"
+            style="@style/timeShadow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

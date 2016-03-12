@@ -9,15 +9,32 @@
     <string name="tv_writer">Writer and Reader</string>
     <string name="tv_dic">Dictionary</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_hint">Click button to Start Dictating !!</string>
     <string name="speech_prompt">Say Something !!</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support Speech input</string>
     <string name="error_tts">This Language is not supported</string>
     <string name="error_tts_init_error">Initialization Failed</string>
     <string name="tv_reading_for_you">Reading for you now..</string>
-    <string name="tv_stop_Reading">Stopping Reading...</string>
-    <string name="tv_Listening">Listening...</string>
-    <string name="tts_error_no_text">Kindly add some text first...</string>
+    <string name="tv_stop_Reading">Stopping Reading…</string>
+    <string name="tv_Listening">Listening…</string>
+    <string name="tts_error_no_text">Kindly add some text first…</string>
+    <string name="search_title">Search in Dictionary</string>
+    <string name="tv_speak">Speak the Word !!</string>
+    <string name="title_activity_search_dictionary">SearchDictionaryActivity</string>
+    <string name="network_error_message">Network is not Available !!</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="error_no_result_found">No Result Found in Local Database!!</string>
+
+    <string name="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis velit ut sem aliquam posuere. Donec lacinia euismod ipsum vel euismod. In mollis nisi eu lorem efficitur, ac hendrerit mauris tempus. Morbi bibendum urna tortor, sit amet luctus urna laoreet ac. Integer tincidunt porta purus at sagittis. Sed ac libero at nunc consequat luctus nec nec risus. Mauris consequat ultrices blandit. In ac ornare est. Sed orci tortor, mollis sit amet mattis sed, egestas sit amet ante. Quisque feugiat magna a egestas commodo. Proin ac nisl nec nisl iaculis aliquet et eu odio. Mauris vel hendrerit mauris, et porta augue. Aenean magna dolor, mollis sed tellus sed, rhoncus viverra mi.
+
+        Nunc malesuada, purus quis tristique luctus, urna mi dapibus urna, sed suscipit neque eros non mauris. Duis pharetra arcu a diam fringilla condimentum. Vestibulum at sem id nisi efficitur pellentesque a ac mi. Donec augue velit, egestas non sollicitudin non, condimentum ut risus. Mauris et elit in velit feugiat ultricies. Duis viverra magna justo, et fringilla tortor luctus non. Vestibulum scelerisque justo vel magna convallis dignissim. Pellentesque vel mi sit amet purus consequat bibendum. Suspendisse vel venenatis urna. Proin dictum at nibh a efficitur. Nulla imperdiet elit id pulvinar ultricies. Nullam a nulla et tortor mattis fringilla. In hac habitasse platea dictumst. Proin odio arcu, condimentum a nisl in, aliquam rhoncus nisl.
+
+        Nulla cursus aliquet malesuada. Nulla nec congue velit, a hendrerit mi. Nunc lacus sem, posuere eget nisl eget, rutrum tristique mauris. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis pretium augue sed ligula varius, et euismod nisi vulputate. Fusce risus enim, mollis a nulla rhoncus, lacinia ornare urna. Maecenas in eros elit. Aliquam sed neque eget eros pulvinar molestie at sit amet enim.
+
+        Etiam hendrerit ipsum ut laoreet laoreet. Nullam iaculis lacus eros, quis elementum quam dictum eget. Mauris hendrerit arcu sed pellentesque interdum. Integer nisl lacus, molestie quis faucibus et, posuere a nisi. Proin dolor nisl, congue commodo vehicula at, pretium in odio. Integer a lorem eu neque posuere lobortis eget eu magna. Aenean non tempor libero. Nam dictum massa eu nisl commodo, sed maximus nulla pulvinar. Sed vel suscipit ex, id elementum massa. Quisque eu tristique tortor. Quisque lacus dolor, convallis condimentum justo eget, consectetur volutpat odio. Aliquam non odio sem. Fusce tincidunt eget diam ut elementum. Curabitur non odio nunc. Cras arcu diam, porta vel arcu sit amet, vestibulum finibus sapien. Donec aliquet felis ullamcorper mauris faucibus, eu rutrum arcu commodo.
+
+        Nam non tellus sed diam placerat vehicula. Sed vestibulum lectus lobortis, commodo nisi in, iaculis enim. Fusce a dui porta, efficitur purus sed, egestas arcu. Pellentesque semper auctor laoreet. Sed posuere malesuada metus et vehicula. Nam vel dui augue. Nam in scelerisque neque, nec rutrum leo.</string>
+    <string name="tv_history">History</string>
+
+
 </resources>

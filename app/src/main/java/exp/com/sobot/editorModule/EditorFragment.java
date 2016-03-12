@@ -1,4 +1,4 @@
-package exp.com.sobot;
+package exp.com.sobot.editorModule;
 
 
 import android.app.Fragment;
@@ -18,55 +18,58 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+
+import exp.com.sobot.R;
+import exp.com.sobot.historyModule.database.NotesDatabaseHelper;
 
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link WriterFragment#newInstance} factory method to
+ * Use the {@link EditorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WriterFragment extends Fragment implements TextToSpeech.OnInitListener{
+public class EditorFragment extends Fragment implements TextToSpeech.OnInitListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "Writer Fragment";
-    private static final String TTS_UNIQUE_ID = "UniqueID" ;
+    private static final String TTS_UNIQUE_ID = "UniqueID";
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     private TextToSpeech tts;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private SpeechRecognizer mSpeechRecognizer;
     private Intent mSpeechRecognizerIntent;
     private boolean mIsListening = false;
     private RecognitionListener mSpeechRecognizerListner;
     private EditText tvTextEditor;
-    private FloatingActionButton fabWriter,fabReader;
+    private FloatingActionButton fabWriter, fabReader, fabSave;
     private ProgressDialog progressDialog;
     private StringBuffer dication = new StringBuffer();
     private boolean isSpeaking;
+    private NotesDatabaseHelper databaseHelper;
 
 
-    public WriterFragment() {
+    public EditorFragment() {
         // Required empty public constructor
     }
-
 
     /**
      * Method to create new Instance of Fragment
      *
      * @return Fragment
      */
-    public static WriterFragment newInstance() {
-        WriterFragment fragment = new WriterFragment();
+    public static EditorFragment newInstance() {
+        EditorFragment fragment = new EditorFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -75,11 +78,7 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        tts = new TextToSpeech(getActivity(),this);
+        tts = new TextToSpeech(getActivity(), this);
         tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override
             public void onStart(String utteranceId) {
@@ -92,6 +91,7 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
                 fabReader.post(new Runnable() {
                     @Override
                     public void run() {
+                        fabWriter.setEnabled(true);
                         fabReader.setImageResource(R.drawable.ic_fab_reader);
                     }
                 });
@@ -116,10 +116,8 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getActivity()
                 .getPackageName());
-        mSpeechRecognizerIntent.putExtra("android.speech.extra.DICTATION_MODE", true);
+//        mSpeechRecognizerIntent.putExtra("android.speech.extra.DICTATION_MODE", true);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-        mSpeechRecognizerIntent.putExtra("android.speech.extras" +
-                ".SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS", 2000);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
     }
 
@@ -135,6 +133,7 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
 
     /**
      * Function to initialize Views
+     *
      * @param view View
      */
     private void viewInitialize(View view) {
@@ -147,7 +146,6 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
                     fabReader.setEnabled(false);
                     startListening();
                 } else {
-                    fabReader.setEnabled(true);
                     stopListening();
                 }
             }
@@ -158,16 +156,34 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
         fabReader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(tvTextEditor.getText().toString())){
-                    Snackbar.make(fabReader, R.string.tts_error_no_text,Snackbar.LENGTH_LONG)
+                if (TextUtils.isEmpty(tvTextEditor.getText().toString())) {
+                    Snackbar.make(fabReader, R.string.tts_error_no_text, Snackbar.LENGTH_LONG)
                             .show();
-                }else {
+                } else {
                     if (!isSpeaking) {
                         startSpeaking();
                     } else {
                         stopSpeaking();
                     }
 
+                }
+            }
+        });
+
+        fabSave = (FloatingActionButton) view.findViewById(R.id.fabSave);
+        fabSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(tvTextEditor.getText().toString())) {
+                    Snackbar.make(fabReader, R.string.tts_error_no_text, Snackbar.LENGTH_LONG)
+                            .show();
+                } else {
+                    Calendar calendar = Calendar.getInstance();
+                    String today = new SimpleDateFormat("E, MMM d, yyyy, hh:mm:ss")
+                            .format(calendar.getTime());
+                    databaseHelper.add(tvTextEditor.getText().toString(), today);
+                    Toast.makeText(getActivity(), "Saved to History!!", Toast.LENGTH_SHORT)
+                            .show();
                 }
             }
         });
@@ -182,7 +198,7 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
         tts.stop();
         isSpeaking = false;
         fabReader.setImageResource(R.drawable.ic_fab_reader);
-        Snackbar.make(fabReader, R.string.tv_stop_Reading,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(fabReader, R.string.tv_stop_Reading, Snackbar.LENGTH_LONG).show();
     }
 
     /**
@@ -190,12 +206,12 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
      */
     private void startSpeaking() {
         fabWriter.setEnabled(false);
-        isSpeaking =true;
+        isSpeaking = true;
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,TTS_UNIQUE_ID );
-        tts.speak(tvTextEditor.getText().toString(), TextToSpeech.QUEUE_FLUSH,map);
+        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, TTS_UNIQUE_ID);
+        tts.speak(tvTextEditor.getText().toString(), TextToSpeech.QUEUE_FLUSH, map);
         fabReader.setImageResource(R.drawable.ic_fab_stop_tts);
-        Snackbar.make(fabReader, R.string.tv_reading_for_you,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(fabReader, R.string.tv_reading_for_you, Snackbar.LENGTH_LONG).show();
     }
 
     /**
@@ -223,11 +239,12 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
      * Function Call to start Listening
      */
     private void stopListening() {
-        mSpeechRecognizer.stopListening();
         mSpeechRecognizer.cancel();
+        mSpeechRecognizer.stopListening();
         mSpeechRecognizer.destroy();
         fabWriter.setImageResource(R.drawable.ic_fab_writer);
         mIsListening = false;
+        fabReader.setEnabled(true);
     }
 
 
@@ -246,7 +263,7 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
 
         @Override
         public void onEndOfSpeech() {
-            startListening();
+
         }
 
         @Override
@@ -261,7 +278,6 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
 
         @Override
         public void onPartialResults(Bundle partialResults) {
-            setPartialResultToEditTextView(partialResults);
         }
 
         @Override
@@ -275,13 +291,13 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
             //Log.d(TAG, "onResults"); //$NON-NLS-1$
             final ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             assert matches != null;
-            dication.append(matches.get(0));
-            tvTextEditor.setText(dication);
+            dication.append(matches.get(0) + " ");
+            tvTextEditor.setText(" " + dication);
+            progressDialog.dismiss();
             Log.d("onResults:", dication.toString());
             // matches are the return values of speech recognition engine
             // Use these values for whatever you wish to do\
             stopListening();
-            startListening();
         }
 
         @Override
@@ -291,6 +307,7 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
 
     /**
      * Function to set Partial Results to EditText
+     *
      * @param partialResults Results
      */
     private void setPartialResultToEditTextView(Bundle partialResults) {
@@ -323,10 +340,8 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
     /**
      * lazy initialize the speech recognizer
      */
-    private SpeechRecognizer getSpeechRecognizer()
-    {
-        if (mSpeechRecognizer == null)
-        {
+    private SpeechRecognizer getSpeechRecognizer() {
+        if (mSpeechRecognizer == null) {
             mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getActivity());
         }
         return mSpeechRecognizer;
@@ -363,5 +378,9 @@ public class WriterFragment extends Fragment implements TextToSpeech.OnInitListe
         super.onDestroy();
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        databaseHelper = new NotesDatabaseHelper(getActivity());
+    }
 }

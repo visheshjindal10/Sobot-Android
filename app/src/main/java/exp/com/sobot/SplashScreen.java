@@ -13,9 +13,12 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // To set activity full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_activity);
+
+        // Function to delay call to next screen and hold splash screen for 2 seconds
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

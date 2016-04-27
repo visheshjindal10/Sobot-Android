@@ -89,6 +89,10 @@ public class Dashboard extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Function call to figure out if phone is connected to the internet or not
+     * @return Boolean
+     */
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

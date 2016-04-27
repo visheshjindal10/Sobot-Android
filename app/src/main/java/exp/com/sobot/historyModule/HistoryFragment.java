@@ -27,6 +27,10 @@ public class HistoryFragment extends android.app.Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Function to create a new Instance of the fragment
+     * @return
+     */
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
@@ -34,9 +38,11 @@ public class HistoryFragment extends android.app.Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Following code fetch all the data from database
         NotesDatabaseHelper database = new NotesDatabaseHelper(getActivity());
         Cursor cursor = database.getAll();
         if (cursor != null){

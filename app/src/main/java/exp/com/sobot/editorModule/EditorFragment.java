@@ -286,6 +286,10 @@ public class EditorFragment extends Fragment implements TextToSpeech.OnInitListe
             mIsListening = true;
         }
 
+        /**
+         * Callback which get result after completion of the voice command
+         * @param results Text result in bundle format
+         */
         @Override
         public void onResults(Bundle results) {
             //Log.d(TAG, "onResults"); //$NON-NLS-1$

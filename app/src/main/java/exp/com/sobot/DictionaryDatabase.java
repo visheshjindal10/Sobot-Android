@@ -177,6 +177,10 @@ public class DictionaryDatabase {
             mHelperContext = context;
         }
 
+        /**
+         * Function to create database of the table
+         * @param db Database
+         */
         @Override
         public void onCreate(SQLiteDatabase db) {
             mDatabase = db;
@@ -233,6 +237,12 @@ public class DictionaryDatabase {
             return mDatabase.insert(FTS_VIRTUAL_TABLE, null, initialValues);
         }
 
+        /**
+         * Function call back to upgrade the database table
+         * @param db SQLite database
+         * @param oldVersion old database version number
+         * @param newVersion new database version number
+         */
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "

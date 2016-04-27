@@ -35,12 +35,15 @@ public class SearchDictionaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Initiate views of the Activity
         setContentView(R.layout.activity_search_dictionary);
         rootView = (CoordinatorLayout) findViewById(R.id.rootView);
         tvWord = (AppCompatTextView) findViewById(R.id.tvWord);
         tvDef = (AppCompatTextView) findViewById(R.id.tvDefinition);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Function to set toolbar
         setSupportActionBar(toolbar);
+        // Handle data passed through intent to the activity
         handleIntent(getIntent());
 
     }
@@ -52,6 +55,10 @@ public class SearchDictionaryActivity extends AppCompatActivity {
         handleIntent(getIntent());
     }
 
+    /**
+     * Function to handle data provided by intent to the activity
+     * @param intent Intent
+     */
     private void handleIntent(Intent intent) {
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -91,6 +98,9 @@ public class SearchDictionaryActivity extends AppCompatActivity {
             }
         } else {
 
+            /**
+             * Function to get first of the database according to the provided search
+             */
             cursor.moveToFirst();
             int word = cursor.getColumnIndex(DictionaryDatabase.KEY_WORD);
             int definition = cursor.getColumnIndex(DictionaryDatabase.KEY_DEFINITION);
@@ -103,6 +113,11 @@ public class SearchDictionaryActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Function call to fetch meaning of the word from the internet in case not found in the
+     * local database
+     * @param querys String for which meaning should be searched
+     */
     private void fetchFromInternet(final String querys) {
         final String[] query = querys.split(" ");
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -112,6 +127,7 @@ public class SearchDictionaryActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
+                // parsing response received from the internet
                 Word word = gson.fromJson(response, Word.class);
                 if (word != null && word.getTuc() != null) {
                     Word.tuc[] tuc = word.getTuc();

@@ -17,6 +17,7 @@ import exp.com.sobot.R;
 public class NotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Note> noteList = new ArrayList<>();
+
     public NotesAdapter(List<Note> noteList) {
         this.noteList = noteList;
     }

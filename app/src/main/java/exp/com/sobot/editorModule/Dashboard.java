@@ -19,7 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import exp.com.sobot.historyModule.NotesFragment;
+import exp.com.sobot.historyModule.HistoryFragment;
 import exp.com.sobot.R;
 
 public class Dashboard extends AppCompatActivity
@@ -79,7 +79,7 @@ public class Dashboard extends AppCompatActivity
 
         } else if (id == R.id.nav_dic) {
             actionBar.setTitle(R.string.tv_history);
-             fm.replace(R.id.container, NotesFragment.newInstance());
+             fm.replace(R.id.container, HistoryFragment.newInstance());
              fm.commit();
 
          }

@@ -17,18 +17,18 @@ import exp.com.sobot.R;
 import exp.com.sobot.historyModule.database.NotesDatabaseHelper;
 
 
-public class NotesFragment extends android.app.Fragment {
+public class HistoryFragment extends android.app.Fragment {
 
     private RecyclerView rvNotes;
     private List<Note> noteList = new ArrayList<>();
 
 
-    public NotesFragment() {
+    public HistoryFragment() {
         // Required empty public constructor
     }
 
-    public static NotesFragment newInstance() {
-        NotesFragment fragment = new NotesFragment();
+    public static HistoryFragment newInstance() {
+        HistoryFragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

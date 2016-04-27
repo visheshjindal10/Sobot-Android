@@ -27,6 +27,7 @@ public class NotesDatabaseHelper {
      * This is an internal class that handles the creation of all database tables
      */
     class SimpleSQLiteOpenHelper extends SQLiteOpenHelper {
+
         SimpleSQLiteOpenHelper(Context context) {
             super(context, "main.db", null, 1);
         }
